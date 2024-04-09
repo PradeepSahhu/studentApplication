@@ -1,0 +1,38 @@
+.loading-message {
+    font-size: 18px;
+    color: #333;
+  }
+
+
+  .card-container {
+    /* display: flex; */
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .searching-field{
+    justify-content: center;
+   
+    margin: 1em;
+  }
+
+  .searching-field input{
+    justify-content: center;
+    /* display: inline-block; */
+    margin: 0 auto;
+    padding: 1em 2em;
+    width: 12rem;
+    border: none;
+  }
+
+  .searching-field button{
+    justify-content: center;
+    /* display: inline-block; */
+    margin: 10px;
+    padding: 1em 4em;
+    border: none;
+    border-radius: 10%;
+    background-color: black;
+    color: white;
+    font-size: 20px;
+  }
