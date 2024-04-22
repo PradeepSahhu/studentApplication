@@ -1,16 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import Card from './Card';
 import SearchStudent from './SearchStudent';
+import Submission from './Submission';
 
 function App() {
   let [StudentsInfo, setStudentsInfo] = useState(null); // Initialize as null
   let [Sec,setSec] = useState('');
   let [Group, setGroup] = useState('');
   const [showComponent, setShowComponent] = useState(false);
+  // const [attendanceStatus,setattendanceStatus] = useState(true);
+ 
 
   const handleButtonClick = () => {
     setShowComponent(true);
   };
+
+  const handleAttendanceChange = (index) => {
+    setStudentsInfo(prevStudentsInfo => {
+      console.log(prevStudentsInfo.myData);
+      const updatedData = {
+        ...prevStudentsInfo,
+        myData: [...prevStudentsInfo.myData]
+      };
+      updatedData.myData[index].Attendance = !updatedData.myData[index].Attendance;
+      return updatedData;
+    });
+  };
+  
 
 
   const fetData = async (Sec,Group) => {
@@ -54,24 +70,26 @@ function App() {
 
   }
 
+ 
+
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('http://localhost:8100/api/students');
-        if (!response.ok) {
-          throw new Error('Failed to fetch data');
-        }
-        const data = await response.json();
+    // const fetchData = async () => {
+    //   try {
+    //     const response = await fetch('http://localhost:8100/api/students');
+    //     if (!response.ok) {
+    //       throw new Error('Failed to fetch data');
+    //     }
+    //     const data = await response.json();
         
-        setStudentsInfo(data); // Set StudentTemp to the fetched data as well
-        console.log(data);
-        console.log(typeof(data));
+    //     setStudentsInfo(data); // Set StudentTemp to the fetched data as well
+    //     console.log(data);
+    //     console.log(typeof(data));
         
-      } catch (error) {
-        console.error('Error fetching data:', error);
-        setStudentsInfo([]); // Set StudentsInfo to an empty array in case of error
-      }
-    };
+    //   } catch (error) {
+    //     console.error('Error fetching data:', error);
+    //     setStudentsInfo([]); // Set StudentsInfo to an empty array in case of error
+    //   }
+    // };
 
     // fetchData();
     fetData("22BCS_TPP-815","A");
@@ -83,9 +101,9 @@ function App() {
   }
 
 
-  const showData = (student, index) => (
-    <Card key={index} data={student} />
-  );
+  // const showData = (student, index) => (
+  //   <Card key={index} data={student} />
+  // );
 
   const studentDetails = Object.values(StudentsInfo);
   console.log(studentDetails[0]);
@@ -93,10 +111,12 @@ function App() {
   console.log(studentDetails[0][0].Name)
   console.log(typeof(studentDetails[0][0].Name));
 
-  studentDetails[0].map((student,index) =>{
-    console.log(student.Section);
-  });
-  let student = studentDetails[0][0];
+  // studentDetails[0].map((student,index) =>{
+  //   console.log(student.Section);
+  // });
+  // let student = studentDetails[0][0].Name;
+  let student = studentDetails[0];
+  console.log("The data of it is: "+student + " type is : "+typeof(student) + student);
 
 
   return (
@@ -125,10 +145,17 @@ function App() {
       </div>
       <button className="nameSearch" onClick={handleButtonClick}>Search By Name</button>
       {showComponent && <SearchStudent />}
-    <h1>Student Details </h1>
-    {studentDetails[0].map(student => (
-      <Card data={student}/>
+    <h1 style={{textAlign:'center'}}>Student Details of Section : {studentDetails[0][0].Section} / {studentDetails[0][0].Group?studentDetails[0][0].Group:null}</h1>
+    {studentDetails[0].map((student,index) => (
+      <Card key={index} attendanceStatus={student.Attendance} onAttendanceChange={() => handleAttendanceChange(index)} data={student}/>
     ))}
+
+
+    <Submission
+          data={studentDetails[0]}
+          filename="exported_data"
+          sheetName="Sheet1"
+        />
 
     
         

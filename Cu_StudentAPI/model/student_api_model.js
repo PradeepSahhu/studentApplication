@@ -38,6 +38,9 @@ const studentSchema = new mongoose.Schema({
       message: "Invalid Section",
     },
   },
+  Attendance:{
+    type:Boolean,
+  },
 });
 
 module.exports = mongoose.model("Student", studentSchema);

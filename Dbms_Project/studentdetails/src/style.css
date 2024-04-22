@@ -48,24 +48,31 @@ body {
 
 
 .card {
-  width: 200px;
-  background-color: #fff;
+  width: 220px;
+  /* background-color: #fff; */
   border: 1px solid #ccc;
   border-radius: 8px;
   padding: 20px;
   margin: 20px;
   display: inline-block;
   text-align: center;
-  background-color: #fa7070;
+  background-color: #1679AB;
 }
 
+.image-container{
+  width: 100%;
+}
 .card img {
   border: 10px solid black; /* Add border around the image */
-  border-radius: 50%;
-  width: 100px;
+  border-radius: 50%; 
+  width: 100%vh;
   height: 100px;
   margin-bottom: 10px;
-}
+} 
+
+
+
+
 
 .card h2 {
   color: #333;
